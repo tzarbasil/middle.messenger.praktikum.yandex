@@ -4,8 +4,8 @@
 </div>
     
 <div class="profile__page_container">
-    <img src={{avatar}} alt="" class="avatar">
-    <h3 class="name">{{profileName}}</h3>
+    <input class="avatar" type="file" name="avatar"  accept="image/png, image/jpeg">
+    <h1 class="name">{{first_name}}</h1>
 
     <form class="form">
         <div class="input_container">
@@ -33,6 +33,21 @@
                 Телефон
                 <input name="{{phone}}" placeholder="{{TEXT}}" type="{{TEXT}}" >
             </label>
+
+    <div class="password_change_container">           
+         <label>
+                Старый пароль
+                <input name="{{oldPassword}}" placeholder="{{TEXT}}" type="{{TEXT}}" >
+            </label>
+            <label>
+                Новый пароль
+                <input name="{{newPassword}}" placeholder="{{TEXT}}" type="{{TEXT}}" >
+            </label>
+            <label>
+                Повторите новый пароль
+                <input name="{{newPassword}}" placeholder="{{TEXT}}" type="{{TEXT}}" >
+            </label></div>
+
         </div>
             <div class="btn_container">
                 <a href="">Изменить данные</a>

@@ -13,7 +13,7 @@ Handlebars.registerPartial("errortText", Components.errortText);
 export default class App {
   constructor() {
     this.state = {
-      pageLocation: "login_page",
+      pageLocation: "navigation_page",
     };
     this.pageTemplate = document.getElementById("app");
   }
@@ -27,6 +27,11 @@ export default class App {
         auth_btn_text: "Авторизоваться",
         btn_text: "Нет аккаунта?",
       });
+    }
+
+    if (this.state.pageLocation === "navigation_page") {
+      template = Handlebars.compile(Pages.navigationPage);
+      this.pageTemplate.innerHTML = template({});
     }
 
     if (this.state.pageLocation === "messanger_page") {
@@ -75,6 +80,14 @@ export default class App {
 
   routingButtonListeners() {
     const routingButtons = document.querySelectorAll(".route_button");
+    const navButtons = document.querySelectorAll(".navigation_link");
+
+    navButtons.forEach((routeBtn) => {
+      routeBtn.addEventListener("click", (e) => {
+        e.preventDefault();
+        this.routingToPage(e.target.dataset.current_page);
+      });
+    });
 
     routingButtons.forEach((routeBtn) => {
       routeBtn.addEventListener("click", (e) => {
