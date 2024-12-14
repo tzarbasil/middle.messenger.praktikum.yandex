@@ -10,7 +10,7 @@
     "dev": "vite --port 3000",
     "build": "vite build",
     "preview": "vite preview",
-    "start": "vite build && vite preview --port 3000"
+    "start": "vite build && vite preview --port=3000"
   },
   "devDependencies": {
     "sass-embedded": "^1.82.0",
