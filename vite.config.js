@@ -1,14 +1,12 @@
 import { defineConfig } from "vite";
-import handlebars from "vite-plugin-handlebars";
+import { resolve } from "path";
 
 export default defineConfig({
-  plugins: [handlebars()],
-  assetsInclude: ["**/*.hbs"],
   build: {
-    port: 3000,
-  },
-
-  preview: {
-    port: 3000,
+    rollupOptions: {
+      input: {
+        main: resolve(__dirname, "index.html"),
+      },
+    },
   },
 });

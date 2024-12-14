@@ -7,9 +7,9 @@
     "node": ">=16"
   },
   "scripts": {
-    "dev": "vite --port 3000",
+    "dev": "vite",
     "build": "vite build",
-    "start": "vite --port 3000",
+    "start": "vite build && node server.cjs",
     "preview": "vite preview"
   },
   "devDependencies": {
