@@ -4,11 +4,11 @@ import handlebars from "vite-plugin-handlebars";
 export default defineConfig({
   plugins: [handlebars()],
   assetsInclude: ["**/*.hbs"],
-  // server: {
-  //   port: 3000,
-  // },
+  build: {
+    port: 3000,
+  },
 
-  // preview: {
-  //   port: 3000,
-  // },
+  preview: {
+    port: 3000,
+  },
 });
