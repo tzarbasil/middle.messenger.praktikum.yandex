@@ -7,10 +7,10 @@
     "node": ">=16"
   },
   "scripts": {
-    "dev": "vite",
+    "dev": "vite --port 3000",
     "build": "vite build",
-    "preview": "vite preview",
-    "start": "vite build && node server.cjs"
+    "start": "vite --port 3000",
+    "preview": "vite preview"
   },
   "devDependencies": {
     "sass-embedded": "^1.82.0",
