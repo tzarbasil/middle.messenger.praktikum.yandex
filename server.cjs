@@ -11,4 +11,4 @@ app.get("*", (req, res) => {
   res.status(200);
 });
 
-app.listen(PORT, () => console.log(`Server is started on port ${PORT}`));
+app.listen(PORT, () => console.log(`Server started at port ${PORT}`));
