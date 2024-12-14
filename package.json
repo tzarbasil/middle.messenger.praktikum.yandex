@@ -9,6 +9,7 @@
   "scripts": {
     "dev": "vite --port 3000",
     "build": "vite build",
+    "start": "vite build && node server.cjs",
     "preview": "vite preview"
   },
   "devDependencies": {
