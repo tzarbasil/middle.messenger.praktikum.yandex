@@ -5,6 +5,6 @@ export default defineConfig({
   plugins: [handlebars()],
   assetsInclude: ["**/*.hbs"],
   server: {
-    port: 3000,
+    port: 3006,
   },
 });

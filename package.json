@@ -7,16 +7,17 @@
     "node": ">=16"
   },
   "scripts": {
-  "dev": "vite --port 3000",
-  "build": "vite build",
-  "start": "vite build && vite preview --port 3000",
-  "preview": "vite preview"
+    "dev": "vite --port 3000",
+    "build": "vite build",
+    "start": "vite build && node server.cjs",
+    "preview": "vite preview"
   },
   "devDependencies": {
     "sass-embedded": "^1.82.0",
     "vite": "^6.0.1"
   },
   "dependencies": {
+    "express": "^4.21.2",
     "handlebars": "^4.7.8",
     "lodash-es": "^4.17.21",
     "vite-plugin-handlebars": "^2.0.0"
