@@ -27,7 +27,6 @@ class ErrorPage {
   }
 }
 
-
 const errorContainer = document.getElementById('app');
 if (errorContainer) {
   new ErrorPage(errorContainer);

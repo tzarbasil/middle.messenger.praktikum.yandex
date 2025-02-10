@@ -1,15 +1,19 @@
 class HttpRequest {
-  private request(method: string, url: string, body: any = null, params: Record<string, string> = {}): Promise<any> {
+  private request(
+    method: string,
+    url: string,
+    body: any = null,
+    params: Record<string, string> = {},
+  ): Promise<any> {
     return new Promise((resolve, reject) => {
-      if (method === 'GET' && Object.keys(params).length) {
-        const queryString = new URLSearchParams(params).toString();
-        url += `?${queryString}`;
-      }
+      const fullUrl = method === 'GET' && Object.keys(params).length
+        ? `${url}?${new URLSearchParams(params).toString()}`
+        : url;
 
       const xhr = new XMLHttpRequest();
-      xhr.open(method, url, true);
+      xhr.open(method, fullUrl, true);
 
-      if (method === 'POST' || method === 'PUT') {
+      if (method === 'POST' || method === 'PUT' || method === 'DELETE') {
         xhr.setRequestHeader('Content-Type', 'application/json');
       }
 
@@ -19,6 +23,7 @@ class HttpRequest {
             const response = JSON.parse(xhr.responseText);
             resolve(response);
           } catch (e) {
+            console.error('Response parsing error:', e);
             reject(new Error('Failed to parse response'));
           }
         } else {
@@ -26,9 +31,7 @@ class HttpRequest {
         }
       };
 
-      xhr.onerror = () => {
-        reject(new Error('Network error'));
-      };
+      xhr.onerror = () => reject(new Error('Network error'));
 
       if (body) {
         xhr.send(JSON.stringify(body));

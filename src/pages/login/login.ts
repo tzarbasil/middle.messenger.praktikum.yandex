@@ -61,7 +61,7 @@ if (loginElement) {
       const inputElement = inputItem.getElement();
 
       const errorElement = document.createElement('span');
-      errorElement.classList.add('error-message');
+      errorElement.classList.add('main__form__error_message');
       errorElement.id = `${field.name}Error`;
 
       const wrapper = document.createElement('div');
@@ -102,7 +102,7 @@ if (form) {
 
     document.querySelectorAll<HTMLInputElement>('.input-wrapper input').forEach((input) => {
       const field = input.name;
-      const value = input.value;
+      const { value } = input;
       const error = validateField(field, value);
 
       const errorElement = document.getElementById(`${field}Error`);

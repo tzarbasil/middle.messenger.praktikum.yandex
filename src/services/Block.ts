@@ -1,50 +1,51 @@
 import { EventBus } from './EventBus';
 
 export abstract class Block<
-	Props extends Record<string, unknown> = Record<string, unknown>,
+  Props extends Record<string, unknown> = Record<string, unknown>,
 > {
-	protected props: Props;
-	protected eventBus: EventBus;
-	protected element: HTMLElement;
+  protected props: Props;
 
-	constructor(props: Props, eventBus: EventBus) {
-		this.props = props;
-		this.eventBus = eventBus;
-		this.element = this.createElement();
+  protected eventBus: EventBus;
 
-		this._addEvents();
-	}
+  protected element: HTMLElement;
 
-	protected createElement(): HTMLElement {
-		return document.createElement("div");
-	}
+  constructor(props: Props, eventBus: EventBus) {
+    this.props = props;
+    this.eventBus = eventBus;
+    this.element = this.createElement();
+    this.addEvents();
+  }
 
-	private _addEvents(): void {
-		const events = this.props.events as Record<string, EventListener> | undefined;
+  protected createElement(): HTMLElement {
+    return document.createElement('div');
+  }
 
-		if (events) {
-			Object.entries(events).forEach(([eventName, handler]: [string, EventListener]) => {
-				this.element.addEventListener(eventName, handler);
-			});
-		}
-	}
+  private addEvents(): void {
+    const events = this.props.events as Record<string, (event: Event) => void> | undefined;
 
-	private _removeEvents(): void {
-		const events = this.props.events as Record<string, EventListener> | undefined;
+    if (events) {
+      Object.entries(events).forEach(([eventName, handler]) => {
+        this.element.addEventListener(eventName, handler);
+      });
+    }
+  }
 
-		if (events) {
-			Object.entries(events).forEach(([eventName, handler]: [string, EventListener]) => {
-				this.element.removeEventListener(eventName, handler);
-			});
-		}
-	}
+  private removeEvents(): void {
+    const events = this.props.events as Record<string, (event: Event) => void> | undefined;
 
-	public getElement(): HTMLElement {
-		return this.element;
-	}
+    if (events) {
+      Object.entries(events).forEach(([eventName, handler]) => {
+        this.element.removeEventListener(eventName, handler);
+      });
+    }
+  }
 
-	public destroy(): void {
-		this._removeEvents();
-		this.element.remove();
-	}
+  public getElement(): HTMLElement {
+    return this.element;
+  }
+
+  public destroy(): void {
+    this.removeEvents();
+    this.element.remove();
+  }
 }

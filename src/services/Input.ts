@@ -1,6 +1,7 @@
 import { Block } from './Block';
 
 export interface InputEventBus {
+  [key: string]: unknown;
 	label: string;
 	type: string;
 	name: string;

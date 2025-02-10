@@ -19,7 +19,7 @@
   ],
   "rules": {
     "import/extensions": ["error", "ignorePackages", { "ts": "never" }],
-    "no-console": "warn",
+    "no-console": "off",
     "no-unused-vars": "off",
     "import/prefer-default-export": "off",
     "no-tabs": "off",
