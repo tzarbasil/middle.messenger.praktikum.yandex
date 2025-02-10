@@ -1,5 +1,5 @@
 import Handlebars from "handlebars";
-import "./assets/fonts.css";
+import "./assets/fonts.scss";
 
 const templateSource = `
 <main class="navigation_page">
