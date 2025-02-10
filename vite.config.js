@@ -3,13 +3,14 @@ import { resolve } from "path";
 
 export default defineConfig({
   build: {
+    outDir: "../dist",
     rollupOptions: {
       input: {
         main: resolve(__dirname, "index.html"),
       },
     },
   },
-  server: {
+  preview: {
     port: 3000,
   },
 });
