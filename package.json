@@ -16,6 +16,7 @@
     "eslint": "eslint src --ext .ts,.tsx --fix"
   },
   "devDependencies": {
+    "vite": "^4.0.1",
     "@typescript-eslint/eslint-plugin": "^5.59.11",
     "@typescript-eslint/parser": "^5.59.11",
     "eslint": "^8.2.0",
@@ -27,13 +28,12 @@
     "stylelint": "^16.14.1",
     "stylelint-config-standard-scss": "^14.0.0",
     "stylelint-scss": "^6.11.0",
-    "typescript": "^5.0.4",
-    "vite": "^4.0.1",
-    "vite-plugin-handlebars": "^2.0.0"
+    "typescript": "^5.0.4"
   },
   "dependencies": {
     "express": "^4.21.2",
     "handlebars": "^4.7.8",
-    "lodash-es": "^4.17.21"
+    "lodash-es": "^4.17.21",
+    "vite-plugin-handlebars": "^2.0.0"
   }
 }
