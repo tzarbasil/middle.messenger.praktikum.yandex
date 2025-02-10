@@ -1,7 +1,7 @@
 export class EventBus {
-  private listeners: Record<string, Function[]> = {};
+  private listeners: Record<string, Array<(...args: unknown[]) => void>> = {};
 
-  on(event: string, listener: Function): void {
+  on(event: string, listener: (...args: unknown[]) => void): void {
     if (!this.listeners[event]) {
       this.listeners[event] = [];
     }
@@ -14,7 +14,7 @@ export class EventBus {
     }
   }
 
-  off(event: string, listener: Function): void {
+  off(event: string, listener: (...args: unknown[]) => void): void {
     if (!this.listeners[event]) return;
 
     this.listeners[event] = this.listeners[event].filter(
