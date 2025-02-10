@@ -1,14 +1,14 @@
 {
   "compilerOptions": {
-  "outDir": "dist",
-  "target": "es2016",
-  "declaration": false,
-  "esModuleInterop": true,
-  "module": "commonjs",
-  "noImplicitAny": true,
-  "noUnusedLocals": true,
-  "noUnusedParameters": true,
-  "sourceMap": true,
-  "strictNullChecks": true
- }
+    "outDir": "dist",
+    "target": "es2016",
+    "declaration": false,
+    "esModuleInterop": true,
+    "module": "commonjs",
+    "noImplicitAny": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "sourceMap": true,
+    "strictNullChecks": true
+  }
 }
