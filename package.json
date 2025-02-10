@@ -31,9 +31,9 @@
   },
   "dependencies": {
     "express": "^4.21.2",
-    "vite": "^4.0.1",
     "handlebars": "^4.7.8",
     "lodash-es": "^4.17.21",
+    "vite": "^4.0.1",
     "vite-plugin-handlebars": "^2.0.0"
   }
 }
