@@ -25,6 +25,7 @@
     "no-tabs": "off",
     "@typescript-eslint/no-explicit-any": "off",
     "@typescript-eslint/no-unused-vars": ["error"],
+    "quotes": ["error", "single"],
     "class-methods-use-this": "off",
     "max-len": ["error", { "code": 150 }],
     "no-new": "off",
