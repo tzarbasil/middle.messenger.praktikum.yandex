@@ -3,15 +3,15 @@ import { EventBus } from './EventBus';
 const eventBus = new EventBus();
 
 class ErrorPage {
-    private container: HTMLElement;
+  private container: HTMLElement;
 
-    constructor(container: HTMLElement) {
-        this.container = container;
-        eventBus.on('showError', this.render.bind(this));
-    }
+  constructor(container: HTMLElement) {
+    this.container = container;
+    eventBus.on('showError', this.render.bind(this));
+  }
 
-    render({ errorNumber, errorText, buttonText }: { errorNumber: number; errorText: string; buttonText: string; }) {
-        this.container.innerHTML = `
+  render({ errorNumber, errorText, buttonText }: { errorNumber: number; errorText: string; buttonText: string; }) {
+    this.container.innerHTML = `
             <main class="error_page error_page_${errorNumber}">
                 <div class="error_container">
                     <h1 class="error_number">${errorNumber}</h1>
@@ -21,21 +21,20 @@ class ErrorPage {
             </main>
         `;
 
-        this.container.querySelector('.error_back_btn')?.addEventListener('click', () => {
-            eventBus.emit('navigate', '/chats');
-        });
-    }
+    this.container.querySelector('.error_back_btn')?.addEventListener('click', () => {
+      eventBus.emit('navigate', '/chats');
+    });
+  }
 }
 
-// Использование
-const errorContainer = document.getElementById('app'); // Укажите ваш контейнер
+
+const errorContainer = document.getElementById('app');
 if (errorContainer) {
-    new ErrorPage(errorContainer);
+  new ErrorPage(errorContainer);
 }
 
-// Вызов ошибки
 eventBus.emit('showError', {
-    errorNumber: 404,
-    errorText: 'Страница не найдена',
-    buttonText: 'Назад к чатам'
+  errorNumber: 404,
+  errorText: 'Страница не найдена',
+  buttonText: 'Назад к чатам',
 });

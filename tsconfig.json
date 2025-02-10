@@ -5,6 +5,7 @@
     "declaration": false,
     "esModuleInterop": true,
     "module": "commonjs",
+    "lib": ["ES2017", "DOM"],
     "noImplicitAny": true,
     "noUnusedLocals": true,
     "noUnusedParameters": true,

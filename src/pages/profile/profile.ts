@@ -1,6 +1,6 @@
-import Handlebars from "handlebars";
-import { EventBus } from "../../services/EventBus";
-import { Input, InputEventBus } from "../../services/Input";
+import Handlebars from 'handlebars';
+import { EventBus } from '../../services/EventBus';
+import { Input, InputEventBus } from '../../services/Input';
 
 interface Context {
 	title: string;
@@ -9,41 +9,43 @@ interface Context {
 }
 
 const context: Context = {
-	title: "Вход",
-	fields: [
-		{ label: "Почта", type: "text", name: "email", placeholder: "pochta@yandex.ru" },
-		{
-			label: "Логин",
-			type: "text",
-			name: "login",
-			placeholder: "ivanivanov",
-		},
+  title: 'Вход',
+  fields: [
     {
-			label: "Имя",
-			type: "text",
-			name: "first_name",
-			placeholder: "Иван",
-		},
+      label: 'Почта', type: 'text', name: 'email', placeholder: 'pochta@yandex.ru',
+    },
     {
-			label: "Фамилия",
-			type: "text",
-			name: "second_name",
-			placeholder: "Иванов",
-		},
+      label: 'Логин',
+      type: 'text',
+      name: 'login',
+      placeholder: 'ivanivanov',
+    },
     {
-			label: "Имя в чате",
-			type: "text",
-			name: "display_name",
-			placeholder: "Иван",
-		},
+      label: 'Имя',
+      type: 'text',
+      name: 'first_name',
+      placeholder: 'Иван',
+    },
     {
-			label: "Телефон",
-			type: "text",
-			name: "phone",
-			placeholder: "+7 (909) 967 30 30",
-		},
-	],
-	firstName: "Иван",
+      label: 'Фамилия',
+      type: 'text',
+      name: 'second_name',
+      placeholder: 'Иванов',
+    },
+    {
+      label: 'Имя в чате',
+      type: 'text',
+      name: 'display_name',
+      placeholder: 'Иван',
+    },
+    {
+      label: 'Телефон',
+      type: 'text',
+      name: 'phone',
+      placeholder: '+7 (909) 967 30 30',
+    },
+  ],
+  firstName: 'Иван',
 };
 
 const templateSource = `
@@ -72,21 +74,21 @@ const templateSource = `
 </main>
 `;
 
-const profileElement = document.getElementById("profile");
+const profileElement = document.getElementById('profile');
 const eventBus = new EventBus();
 
 const template = Handlebars.compile(templateSource);
 const html = template(context);
 
 if (profileElement) {
-	profileElement.innerHTML = html;
+  profileElement.innerHTML = html;
 
-	const renderInput = document.getElementById("input-render");
+  const renderInput = document.getElementById('input-render');
 
-	if (renderInput) {
-		context.fields.forEach((field) => {
-			const inputItem = new Input(field, eventBus);
-			renderInput.appendChild(inputItem.getElement());
-		});
-	}
+  if (renderInput) {
+    context.fields.forEach((field) => {
+      const inputItem = new Input(field, eventBus);
+      renderInput.appendChild(inputItem.getElement());
+    });
+  }
 }

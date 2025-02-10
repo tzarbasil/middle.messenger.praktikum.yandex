@@ -1,4 +1,4 @@
-import Handlebars from "handlebars";
+import Handlebars from 'handlebars';
 
 interface Context {
 	profileButton: string;
@@ -6,8 +6,8 @@ interface Context {
 }
 
 const context: Context = {
-	profileButton: "Профиль",
-	profileButtonLink: "/src/pages/profile/profile.html",
+  profileButton: 'Профиль',
+  profileButtonLink: '/src/pages/profile/profile.html',
 };
 
 const templateSource = `
@@ -97,10 +97,10 @@ const templateSource = `
 </main>
 `;
 
-const chatElement = document.getElementById("chat");
+const chatElement = document.getElementById('chat');
 const template = Handlebars.compile(templateSource);
 const html = template(context);
 
 if (chatElement) {
-	chatElement.innerHTML = html;
+  chatElement.innerHTML = html;
 }

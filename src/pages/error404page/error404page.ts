@@ -13,13 +13,9 @@ export interface ErrorProps {
 }
 
 export class ErrorComponent extends Block<ErrorProps> {
-    constructor(props: ErrorProps, eventBus: EventBus) {
-        super(props, eventBus);
-    }
-
-    protected createElement(): HTMLElement {
-        const div = document.createElement('div');
-        div.innerHTML = `
+  protected createElement(): HTMLElement {
+    const div = document.createElement('div');
+    div.innerHTML = `
             <main class="error_page error_page_${this.props.errorNumber}">
                 <div class="error_container">
                     <h1 class="error_number">${this.props.errorNumber}</h1>
@@ -29,13 +25,13 @@ export class ErrorComponent extends Block<ErrorProps> {
             </main>
         `;
 
-        const button = div.querySelector('.error_back_btn');
-        if (button && this.props.events?.click) {
-            button.addEventListener('click', this.props.events.click);
-        }
-
-        return div;
+    const button = div.querySelector('.error_back_btn');
+    if (button && this.props.events?.click) {
+      button.addEventListener('click', this.props.events.click);
     }
+
+    return div;
+  }
 }
 
 const templateSource = `
@@ -48,25 +44,24 @@ const template = Handlebars.compile(templateSource);
 
 const errorContainer = document.getElementById('app');
 if (errorContainer) {
-    errorContainer.innerHTML = template({});
-    const errorWrapper = document.getElementById('error-wrapper');
+  errorContainer.innerHTML = template({});
+  const errorWrapper = document.getElementById('error-wrapper');
 
-    if (errorWrapper) {
-        eventBus.on('showError', (context: ErrorProps) => {
-            const errorComponent = new ErrorComponent(context, eventBus);
-            errorWrapper.innerHTML = '';
-            errorWrapper.appendChild(errorComponent.getElement());
-        });
-    }
+  if (errorWrapper) {
+    eventBus.on('showError', (context: ErrorProps) => {
+      const errorComponent = new ErrorComponent(context, eventBus);
+      errorWrapper.innerHTML = '';
+      errorWrapper.appendChild(errorComponent.getElement());
+    });
+  }
 }
 
-// Вызов ошибки
 eventBus.emit('showError', {
-    errorNumber: 404,
-    errorText: 'Страница не найдена',
-    buttonText: 'Назад к чатам',
-    errorBtnLink: '../chat/chat.html',
-    events: {
-        click: () => eventBus.emit('navigate', '/chats')
-    }
+  errorNumber: 404,
+  errorText: 'Страница не найдена',
+  buttonText: 'Назад к чатам',
+  errorBtnLink: '../chat/chat.html',
+  events: {
+    click: () => eventBus.emit('navigate', '/chats'),
+  },
 });

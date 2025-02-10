@@ -1,5 +1,5 @@
-import Handlebars from "handlebars";
-import "./assets/fonts.scss";
+import Handlebars from 'handlebars';
+import './assets/fonts.scss';
 
 const templateSource = `
 <main class="navigation_page">
@@ -15,7 +15,7 @@ const templateSource = `
 </main>
 `;
 
-const authElement = document.getElementById("auth");
+const authElement = document.getElementById('auth');
 
 if (authElement) {
   const template = Handlebars.compile(templateSource);

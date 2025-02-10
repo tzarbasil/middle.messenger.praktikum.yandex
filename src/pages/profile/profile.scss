@@ -1,11 +1,9 @@
 .profile__page {
   display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
+  flex-flow: row wrap;
 
   .sidebar {
       background-color: #FBFBFB;
-      height: 100%;
       padding: 0 18px;
       display: flex;
       align-items: center;
@@ -68,7 +66,6 @@
 
       .input_container {
           display: flex;
-          display: flex;
           flex-direction: column;
           width: 100%;
           gap: 10px;
@@ -89,9 +86,10 @@
                   width: 80%;
                   outline: none;
                   text-align: end;
-                  color: #999999;
+                  color: #999;
                   font-size: 13px;
                   font-weight: 500;
+
                   ::placeholder {
                       color: #EAEAEA;
                   }
@@ -120,7 +118,7 @@
 
 
           .exit {
-              color: #FF0000;
+              color: #F00;
               font-size: 13px;
               font-weight: 500;
           }

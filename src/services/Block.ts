@@ -1,7 +1,7 @@
-import { EventBus } from "./EventBus";
+import { EventBus } from './EventBus';
 
 export abstract class Block<
-	Props extends Record<string, any> = Record<string, any>,
+	Props extends Record<string, unknown> = Record<string, unknown>,
 > {
 	protected props: Props;
 	protected eventBus: EventBus;
@@ -16,27 +16,35 @@ export abstract class Block<
 	}
 
 	protected createElement(): HTMLElement {
-		const div = document.createElement("div");
-		return div;
+		return document.createElement("div");
 	}
 
 	private _addEvents(): void {
-		const { events = {} } = this.props;
+		const events = this.props.events as Record<string, EventListener> | undefined;
 
-		Object.keys(events).forEach((eventName) => {
-			const handler = events[eventName];
-			if (typeof handler === "function") {
+		if (events) {
+			Object.entries(events).forEach(([eventName, handler]: [string, EventListener]) => {
 				this.element.addEventListener(eventName, handler);
-			}
-		});
+			});
+		}
 	}
 
+	private _removeEvents(): void {
+		const events = this.props.events as Record<string, EventListener> | undefined;
+
+		if (events) {
+			Object.entries(events).forEach(([eventName, handler]: [string, EventListener]) => {
+				this.element.removeEventListener(eventName, handler);
+			});
+		}
+	}
 
 	public getElement(): HTMLElement {
 		return this.element;
 	}
 
 	public destroy(): void {
+		this._removeEvents();
 		this.element.remove();
 	}
 }
