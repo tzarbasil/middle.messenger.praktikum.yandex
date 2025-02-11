@@ -10,7 +10,7 @@ export interface ErrorProps {
   buttonText: string;
   errorBtnLink: string;
   events?: Record<string, (event: Event) => void>;
-  [key: string]: unknown; 
+  [key: string]: unknown;
 }
 
 export class ErrorComponent extends Block<ErrorProps> {

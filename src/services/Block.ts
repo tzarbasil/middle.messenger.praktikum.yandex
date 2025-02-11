@@ -13,7 +13,7 @@ export abstract class Block<
     this.props = props;
     this.eventBus = eventBus;
     this.element = this.createElement();
-    this.addEvents(); 
+    this.addEvents();
   }
 
   protected createElement(): HTMLElement {
