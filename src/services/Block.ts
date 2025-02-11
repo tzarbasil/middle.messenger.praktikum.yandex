@@ -13,14 +13,14 @@ export abstract class Block<
     this.props = props;
     this.eventBus = eventBus;
     this.element = this.createElement();
-    this.addEvents();
+    this.addEvents(); // Теперь можно вызывать `addEvents()`
   }
 
   protected createElement(): HTMLElement {
     return document.createElement('div');
   }
 
-  private addEvents(): void {
+  protected addEvents(): void { // Изменили `private` на `protected`
     const events = this.props.events as Record<string, (event: Event) => void> | undefined;
 
     if (events) {
@@ -30,7 +30,7 @@ export abstract class Block<
     }
   }
 
-  private removeEvents(): void {
+  protected removeEvents(): void { // Изменили `private` на `protected`
     const events = this.props.events as Record<string, (event: Event) => void> | undefined;
 
     if (events) {

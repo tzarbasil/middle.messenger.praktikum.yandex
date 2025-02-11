@@ -1,6 +1,8 @@
 import Handlebars from 'handlebars';
 import './assets/fonts.scss';
 
+import { LoginPage } from './pages/login/LoginPage';
+
 const templateSource = `
 <main class="navigation_page">
     <nav>
@@ -15,7 +17,14 @@ const templateSource = `
 </main>
 `;
 
-const authElement = document.getElementById('auth');
+const appContainer = document.getElementById('auth');
+
+if (appContainer) {
+  const loginPage = new LoginPage();
+  appContainer.appendChild(loginPage.getElement());
+}
+
+const authElement = document.getElementById('mainpage');
 
 if (authElement) {
   const template = Handlebars.compile(templateSource);

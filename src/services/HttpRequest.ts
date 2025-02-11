@@ -1,29 +1,44 @@
+enum HttpMethod {
+  GET = 'GET',
+  POST = 'POST',
+  PUT = 'PUT',
+  DELETE = 'DELETE',
+}
+
 class HttpRequest {
+  private queryStringify(params: Record<string, string>): string {
+    if (typeof params !== 'object' || params === null) {
+      throw new Error('Params must be an object');
+    }
+
+    return Object.keys(params).length
+      ? `?${Object.entries(params)
+        .map(([key, value]) => `${encodeURIComponent(key)}=${encodeURIComponent(value)}`)
+        .join('&')}`
+      : '';
+  }
+
   private request(
-    method: string,
+    method: HttpMethod,
     url: string,
     body: any = null,
     params: Record<string, string> = {},
   ): Promise<any> {
     return new Promise((resolve, reject) => {
-      const fullUrl = method === 'GET' && Object.keys(params).length
-        ? `${url}?${new URLSearchParams(params).toString()}`
-        : url;
+      const fullUrl = method === HttpMethod.GET ? `${url}${this.queryStringify(params)}` : url;
 
       const xhr = new XMLHttpRequest();
       xhr.open(method, fullUrl, true);
 
-      if (method === 'POST' || method === 'PUT' || method === 'DELETE') {
+      if (method !== HttpMethod.GET) {
         xhr.setRequestHeader('Content-Type', 'application/json');
       }
 
       xhr.onload = () => {
         if (xhr.status >= 200 && xhr.status < 300) {
           try {
-            const response = JSON.parse(xhr.responseText);
-            resolve(response);
-          } catch (e) {
-            console.error('Response parsing error:', e);
+            resolve(JSON.parse(xhr.responseText));
+          } catch {
             reject(new Error('Failed to parse response'));
           }
         } else {
@@ -33,7 +48,7 @@ class HttpRequest {
 
       xhr.onerror = () => reject(new Error('Network error'));
 
-      if (body) {
+      if (method !== HttpMethod.GET && body) {
         xhr.send(JSON.stringify(body));
       } else {
         xhr.send();
@@ -42,20 +57,20 @@ class HttpRequest {
   }
 
   public get(url: string, params: Record<string, string> = {}): Promise<any> {
-    return this.request('GET', url, null, params);
+    return this.request(HttpMethod.GET, url, null, params);
   }
 
   public post(url: string, body: any): Promise<any> {
-    return this.request('POST', url, body);
+    return this.request(HttpMethod.POST, url, body);
   }
 
   public put(url: string, body: any): Promise<any> {
-    return this.request('PUT', url, body);
+    return this.request(HttpMethod.PUT, url, body);
   }
 
   public delete(url: string, body: any): Promise<any> {
-    return this.request('DELETE', url, body);
+    return this.request(HttpMethod.DELETE, url, body);
   }
 }
 
-export { HttpRequest };
+export { HttpRequest, HttpMethod };
