@@ -1,6 +1,6 @@
 import { Error } from '../../components/ErrorComponent';
 import { Link } from '../../components/MainButton';
-import Block from '../../services/Block';
+import { Block } from '../../services/Block';
 import { Error404Layout } from './error404page';
 
 export class Error404 extends Block {

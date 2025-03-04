@@ -1,5 +1,6 @@
 import * as Pages from './pages';
-import Block from './services/Block';
+
+import { Block } from './services/Block';
 
 type Routes =
 | '/'

@@ -1,6 +1,6 @@
 import { Error } from '../../components/ErrorComponent';
 import { Link } from '../../components/MainButton';
-import Block from '../../services/Block';
+import { Block } from '../../services/Block';
 import { Error505Layout } from './error500page';
 
 export class Error505 extends Block {

@@ -1,4 +1,4 @@
-import Block from '../../services/Block';
+import { Block } from '../../services/Block';
 import { ProfilePageLayout } from './profilePage';
 import './styles.scss';
 import { ProfileData } from '../../components/ProfileDataForm';

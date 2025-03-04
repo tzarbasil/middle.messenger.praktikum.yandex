@@ -1,5 +1,5 @@
 import { Link } from '../MainButton';
-import Block from '../../services/Block';
+import { Block } from '../../services/Block';
 import { MessangerHeaderLayout } from './messangerHeader';
 import { SearchInput } from '../searchForm';
 import './styles.scss';

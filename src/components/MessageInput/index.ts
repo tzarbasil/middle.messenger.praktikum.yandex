@@ -1,7 +1,7 @@
 import { Button } from '../LoginButton';
 import { Form } from '../MainForm';
 import { Input } from '../MainInput';
-import Block from '../../services/Block';
+import { Block } from '../../services/Block';
 import { MessageInputLayout } from './messageInput';
 
 interface IMessageInputProps {

@@ -3,25 +3,30 @@ import { EventBus } from './EventBus';
 
 export type Props = Record<string, unknown>;
 
-class Block {
+interface BlockType {
+  updateElement(): HTMLElement;
+  setProps(nextProps: Props): void;
+  element: HTMLElement | null;
+  dispatchComponentDidMount(): void;
+}
+
+export class Block implements BlockType {
+  private _element: HTMLElement | null = null;
+
+  children: { [key: string]: BlockType };
+
+  lists: { [key: string]: unknown[] };
+
+  props: Props;
+
+  eventBus: () => EventBus;
+
   static EVENTS = {
     INIT: 'init',
     FLOW_CDM: 'flow:component-did-mount',
     FLOW_CDU: 'flow:component-did-update',
     FLOW_RENDER: 'flow:render',
   };
-
-  private _id: string;
-
-  private _element: HTMLElement | null = null;
-
-  children: Record<string, Block>;
-
-  lists: Record<string, unknown[]>;
-
-  props: Props;
-
-  eventBus: () => EventBus;
 
   constructor(child: Props = {}) {
     const eventBus = new EventBus();
@@ -37,7 +42,7 @@ class Block {
 
   private _registerListener() {
     const { events = {} } = this.props as {
-      events: Record<string, EventListener>;
+      events: { [key: string]: (event: Event) => void };
     };
 
     Object.keys(events).forEach((e) => {
@@ -49,7 +54,7 @@ class Block {
 
   private _removeEvents(): void {
     const { events = {} } = this.props as {
-      events: Record<string, EventListener>;
+      events: { [key: string]: (event: Event) => void };
     };
 
     if (!events) return;
@@ -72,15 +77,15 @@ class Block {
     this.eventBus().emit(Block.EVENTS.FLOW_RENDER);
   }
 
+  protected componentDidMount(): void {
+    // Логика для обработки событий, если нужно
+  }
+
   private _componentDidMount() {
     this.componentDidMount();
     Object.values(this.children).forEach((child) => {
       child.dispatchComponentDidMount();
     });
-  }
-
-  protected componentDidMount(): void {
-
   }
 
   public dispatchComponentDidMount() {
@@ -100,13 +105,13 @@ class Block {
   }
 
   private _getChild(child: Props): {
-    children: Record<string, Block>;
+    children: { [key: string]: BlockType };
     props: Props;
-    lists: Record<string, unknown[]>;
+    lists: { [key: string]: unknown[] };
   } {
-    const children: Record<string, Block> = {};
+    const children: { [key: string]: BlockType } = {};
     const props: Props = {};
-    const lists: Record<string, unknown[]> = {};
+    const lists: { [key: string]: unknown[] } = {};
 
     Object.entries(child).forEach(([key, value]) => {
       if (value instanceof Block) {
@@ -148,19 +153,19 @@ class Block {
   private _render(): void {
     const propsRegister = { ...this.props };
 
-    Object.entries(this.children).forEach(([key, child]) => {
-      propsRegister[key] = `<div data-id="${child._id}"></div>`;
+    Object.entries(this.children).forEach(([key]) => {
+      propsRegister[key] = '<div></div>';
     });
 
     Object.entries(this.lists).forEach(([key]) => {
-      propsRegister[key] = '<div data-id="__l_"></div>';
+      propsRegister[key] = '<div></div>';
     });
 
     const templateElem = this._createDocumentElement('template');
     templateElem.innerHTML = Handlebars.compile(this.render())(propsRegister);
 
     Object.values(this.children).forEach((child) => {
-      const stub = templateElem.content.querySelector(`[data-id="${child._id}"]`);
+      const stub = templateElem.content.querySelector('div');
       if (stub) {
         stub.replaceWith(child.updateElement());
       }
@@ -175,7 +180,7 @@ class Block {
           listElem.content.append(`${item}`);
         }
       });
-      const stub = templateElem.content.querySelector('[data-id="__l_"]');
+      const stub = templateElem.content.querySelector('div');
       if (stub) {
         stub.replaceWith(listElem.content);
       }
@@ -212,9 +217,8 @@ class Block {
         return typeof value === 'function' ? value.bind(target) : value;
       },
       set(target, prop: string, value) {
-        target[prop] = value;
-
-        eventBus().emit(Block.EVENTS.FLOW_CDU, { ...target }, target);
+        const newTarget = { ...target, [prop]: value };
+        eventBus().emit(Block.EVENTS.FLOW_CDU, { ...newTarget }, target);
         return true;
       },
       deleteProperty() {
@@ -227,5 +231,3 @@ class Block {
     return document.createElement(tagName) as HTMLTemplateElement;
   }
 }
-
-export default Block;

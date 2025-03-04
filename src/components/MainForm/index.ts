@@ -1,6 +1,6 @@
 import { Button } from '../LoginButton';
 import { Input } from '../MainInput';
-import Block from '../../services/Block';
+import { Block } from '../../services/Block';
 import './styles.scss';
 import { FormLayout } from './mainForm';
 

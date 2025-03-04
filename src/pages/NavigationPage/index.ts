@@ -1,7 +1,7 @@
 import { ListElement } from '../../components/ListElement';
 import { Link } from '../../components/MainButton';
 import { linksOnNavigationPage } from './navigationLinks';
-import Block from '../../services/Block';
+import { Block } from '../../services/Block';
 import { NavigationPageLayout } from './navigationPage';
 
 export class NavigationPage extends Block {

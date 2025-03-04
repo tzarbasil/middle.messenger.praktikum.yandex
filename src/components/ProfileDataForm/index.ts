@@ -1,5 +1,5 @@
 import { ProfileDataLayout } from './profileDataLayout';
-import Block from '../../services/Block';
+import { Block } from '../../services/Block';
 
 interface ProfileDataInterface {
   label: string;

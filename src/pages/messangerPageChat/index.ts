@@ -1,5 +1,5 @@
 import { MessageInput } from '../../components/MessageInput';
-import Block from '../../services/Block';
+import { Block } from '../../services/Block';
 import { ListElement } from '../../components/ListElement';
 import { chatList, messageList } from '../../messanger_data/messangerData';
 import { MessangerHeader } from '../../components/MessangerHeader';

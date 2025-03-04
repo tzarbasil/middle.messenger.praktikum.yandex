@@ -1,4 +1,4 @@
-import Block from '../../services/Block';
+import { Block } from '../../services/Block';
 import { UserMessageLayout } from './userMessage';
 
 interface MessageInterface {

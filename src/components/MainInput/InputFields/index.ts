@@ -1,4 +1,4 @@
-import Block from '../../../services/Block';
+import { Block } from '../../../services/Block';
 
 import { InputFieldLayout } from './mainInputField';
 
@@ -11,7 +11,7 @@ interface InputFieldsInterface {
   value?: string;
   class?: string;
   icon?: string;
-  events?: Record<string, EventListener>;
+  events?: Record<string, (event: Event) => void>;
 }
 
 export class InputField extends Block {

@@ -1,5 +1,5 @@
 import { Link } from '../MainButton';
-import Block from '../../services/Block';
+import { Block } from '../../services/Block';
 import { ErrorLayout } from './errorComponent';
 import './styles.scss';
 

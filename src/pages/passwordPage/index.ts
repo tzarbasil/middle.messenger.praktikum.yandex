@@ -2,7 +2,7 @@ import { Button } from '../../components/LoginButton';
 import { Form } from '../../components/MainForm';
 import { Input } from '../../components/MainInput';
 import { Sidebar } from '../../components/Sidebar';
-import Block from '../../services/Block';
+import { Block } from '../../services/Block';
 import './styles.scss';
 
 import { PasswordPageLayout } from './passwordPage';

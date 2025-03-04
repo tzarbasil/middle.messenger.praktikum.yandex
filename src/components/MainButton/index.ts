@@ -1,5 +1,5 @@
 import { LinkLayout } from './mainButton';
-import Block from '../../services/Block';
+import { Block } from '../../services/Block';
 
 interface MainButtonInterface {
   modifier?: string;

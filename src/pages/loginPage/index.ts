@@ -3,7 +3,7 @@ import { Button } from '../../components/LoginButton';
 import { Form } from '../../components/MainForm';
 import { Input } from '../../components/MainInput';
 import { Link } from '../../components/MainButton';
-import Block from '../../services/Block';
+import { Block } from '../../services/Block';
 import { LoginPageLayout } from './loginPage';
 
 export class LoginPage extends Block {

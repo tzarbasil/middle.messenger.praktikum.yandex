@@ -1,4 +1,4 @@
-import Block from '../../services/Block';
+import { Block } from '../../services/Block';
 import { MessangerPageLayout } from './messangerPage';
 import { ListElement } from '../../components/ListElement';
 import './styles.scss';

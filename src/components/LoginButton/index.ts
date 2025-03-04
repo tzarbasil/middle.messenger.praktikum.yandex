@@ -1,4 +1,4 @@
-import Block from '../../services/Block';
+import { Block } from '../../services/Block';
 import { loginButton } from './loginButton';
 import './styles.scss';
 

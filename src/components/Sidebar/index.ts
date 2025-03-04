@@ -1,6 +1,6 @@
 import { Button } from '../LoginButton';
 import { SidebarLayout } from './sidebar';
-import Block from '../../services/Block';
+import { Block } from '../../services/Block';
 import './styles.scss';
 
 export class Sidebar extends Block {

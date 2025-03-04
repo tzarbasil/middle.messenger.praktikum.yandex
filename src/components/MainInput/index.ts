@@ -1,5 +1,5 @@
 import { InputField } from './InputFields';
-import Block from '../../services/Block';
+import { Block } from '../../services/Block';
 import { InputLayout } from './mainInput';
 import { validateField } from '../../services/validation';
 
@@ -15,6 +15,8 @@ interface MainInputInterface {
 }
 
 export class Input extends Block {
+  error: string;
+
   constructor(props: MainInputInterface) {
     super({
       ...props,
@@ -27,11 +29,12 @@ export class Input extends Block {
           const input = event.target as HTMLInputElement;
           const errorMessage = validateField(input.name, input.value);
           if (errorMessage) {
-            alert(errorMessage);
+            this.error = errorMessage;
           }
         },
       },
     });
+    this.error = '';
   }
 
   override render() {
