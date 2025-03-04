@@ -18,6 +18,7 @@
     "@typescript-eslint"
   ],
   "rules": {
+    "no-underscore-dangle": "off",
     "no-shadow": "off",
     "import/extensions": ["error", "ignorePackages", { "ts": "never" }],
     "no-console": "off",

@@ -1,32 +1,80 @@
-import Handlebars from 'handlebars';
-import './assets/fonts.scss';
+import * as Pages from './pages';
+import Block from './services/Block';
 
-import { LoginPage } from './pages/login/LoginPage';
+type Routes =
+| '/'
+| '/login'
+| '/register'
+| '/profile'
+| '/edit-profile'
+| '/change-password'
+| '/messanger'
+| '/messanger_user'
+| '/404'
+| '/500';
 
-const templateSource = `
-<main class="navigation_page">
-    <nav>
-        <ul>
-            <li><a href="/src/pages/login/login.html" class="navigation_link" data-current_page="login_page">Авторизация</a></li>
-            <li><a href="/src/pages/registration/register_page.html" data-current_page="register_page">Регистрация</a></li>
-            <li><a href="/src/pages/profile/profile.html" class="navigation_link" data-current_page="profile__page">Профиль</a></li>
-            <li><a href="/src/pages/chat/chat.html" class="navigation_link" data-current_page="messanger_page">Чат</a></li>
-            <li><a href="/src/pages/error404page/error404page.html" class="navigation_link" data-current_page="error_page_500">404</a></li>
-        </ul>
-    </nav>
-</main>
-`;
+export class App {
+  protected appElement: HTMLElement | null;
 
-const appContainer = document.getElementById('auth');
+  constructor() {
+    this.appElement = document.getElementById('app');
+  }
 
-if (appContainer) {
-  const loginPage = new LoginPage();
-  appContainer.appendChild(loginPage.getElement());
+  public render() {
+    let page: Block | null;
+
+    switch (window.location.pathname as Routes) {
+      case '/':
+        page = new Pages.NavigationPage();
+        break;
+
+      case '/login':
+        page = new Pages.LoginPage();
+        break;
+
+      case '/register':
+        page = new Pages.RegisterPage();
+        break;
+
+      case '/profile':
+        page = new Pages.ProfilePage();
+        break;
+
+      case '/edit-profile':
+        page = new Pages.ProfileEditPage();
+        break;
+
+      case '/change-password':
+        page = new Pages.PasswordPage();
+        break;
+
+      case '/messanger':
+        page = new Pages.MessangerPage();
+        break;
+
+      case '/messanger_user':
+        page = new Pages.MessangerPageChat();
+        break;
+
+      case '/404':
+        page = new Pages.Error404();
+        break;
+
+      case '/500':
+        page = new Pages.Error505();
+        break;
+
+      default:
+        page = new Pages.Error404();
+        break;
+    }
+    if (this.appElement) {
+      this.appElement.replaceChildren(page.updateElement());
+    }
+  }
 }
 
-const authElement = document.getElementById('mainpage');
-
-if (authElement) {
-  const template = Handlebars.compile(templateSource);
-  authElement.innerHTML = template({});
-}
+document.addEventListener('DOMContentLoaded', () => {
+  const app = new App();
+  app.render();
+});
