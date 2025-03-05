@@ -21,9 +21,9 @@ class HttpRequest {
   private request(
     method: HttpMethod,
     url: string,
-    body: any = null,
+    body: unknown = null,
     params: Record<string, string> = {},
-  ): Promise<any> {
+  ): Promise<unknown> {
     return new Promise((resolve, reject) => {
       const fullUrl = method === HttpMethod.GET ? `${url}${this.queryStringify(params)}` : url;
 
