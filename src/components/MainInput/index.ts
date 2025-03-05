@@ -12,6 +12,7 @@ interface MainInputInterface {
   value?: string;
   class?: string;
   events?: Record<string, (event: Event) => void>;
+  error?: string;  // Добавляем поле для ошибки
 }
 
 export class Input extends Block {
@@ -20,7 +21,7 @@ export class Input extends Block {
   constructor(props: MainInputInterface) {
     super({
       ...props,
-      error: '',
+      error: '', // Изначально ошибки нет
       inputField: new InputField({
         ...props,
       }),
@@ -28,16 +29,14 @@ export class Input extends Block {
         blur: (event: FocusEvent) => {
           const input = event.target as HTMLInputElement;
           const errorMessage = validateField(input.name, input.value);
-          if (errorMessage) {
-            this.error = errorMessage;
-          }
+          this.error = errorMessage || ''; // Устанавливаем ошибку
         },
       },
     });
-    this.error = '';
+    this.error = ''; // Изначально ошибка пуста
   }
 
   override render() {
-    return InputLayout;
+    return InputLayout; // Дополнительно в шаблоне можно отобразить this.error
   }
 }

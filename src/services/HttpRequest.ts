@@ -56,19 +56,19 @@ class HttpRequest {
     });
   }
 
-  public get(url: string, params: Record<string, string> = {}): Promise<any> {
+  public get(url: string, params: Record<string, string> = {}): Promise<unknown> {
     return this.request(HttpMethod.GET, url, null, params);
   }
 
-  public post(url: string, body: any): Promise<any> {
+  public post(url: string, body: unknown): Promise<unknown> {
     return this.request(HttpMethod.POST, url, body);
   }
 
-  public put(url: string, body: any): Promise<any> {
+  public put(url: string, body: unknown): Promise<unknown> {
     return this.request(HttpMethod.PUT, url, body);
   }
 
-  public delete(url: string, body: any): Promise<any> {
+  public delete(url: string, body: unknown): Promise<unknown> {
     return this.request(HttpMethod.DELETE, url, body);
   }
 }

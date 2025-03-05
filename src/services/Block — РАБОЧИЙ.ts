@@ -51,27 +51,6 @@ export class Block implements BlockType {
     eventBus.on(Block.EVENTS.FLOW_RENDER, this._render.bind(this));
   }
 
-  private _registerListener() {
-    const { events = {} } = this.props as { events: Record<string, (event: Event) => void> };
-    Object.keys(events).forEach((e) => {
-      if (this._element) {
-        this._element.addEventListener(e, events[e]);
-      }
-    });
-  }
-
-  private _removeEvents(): void {
-    const { events = {} } = this.props as { events: Record<string, (event: Event) => void> };
-
-    if (!events) return;
-
-    Object.keys(events).forEach((e) => {
-      if (this._element) {
-        this._element.removeEventListener(e, events[e]);
-      }
-    });
-  }
-
   protected init() {
     this.eventBus().emit(Block.EVENTS.FLOW_RENDER);
   }
@@ -173,9 +152,6 @@ export class Block implements BlockType {
       this._element.replaceWith(firstElem);
     }
     this._element = firstElem;
-
-    this._removeEvents();
-    this._registerListener();
   }
 
   protected render(): string {
