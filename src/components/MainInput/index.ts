@@ -12,11 +12,15 @@ interface MainInputInterface {
   value?: string;
   class?: string;
   events?: Record<string, (event: Event) => void>;
-  error?: string;  // Добавляем поле для ошибки
+  error?: string; // Добавляем поле для ошибки
 }
 
 export class Input extends Block {
   error: string;
+
+  setError(errorMessage: string): void {
+    this.error = errorMessage; // Устанавливаем ошибку
+  }
 
   constructor(props: MainInputInterface) {
     super({

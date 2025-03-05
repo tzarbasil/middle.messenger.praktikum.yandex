@@ -38,11 +38,9 @@ export class Form extends Block {
         const errorMessage = validateField(inputElement.name, inputElement.value); // Валидация поля
         if (errorMessage) {
           isValid = false; // Если хотя бы одно поле невалидно, устанавливаем флаг в false
-          // Приводим тип input к классу Input и устанавливаем ошибку
-          (input as Input).error = errorMessage; // Приведение типа
+          this.setInputError(input, errorMessage); // Обновляем ошибку через метод
         } else {
-          // Если поле валидно, сбрасываем ошибку
-          (input as Input).error = '';
+          this.setInputError(input, ''); // Сбрасываем ошибку через метод
         }
 
         formData[inputElement.name] = inputElement.value; // Добавляем данные в объект
@@ -55,6 +53,12 @@ export class Form extends Block {
     } else {
       console.log('Form validation failed');
     }
+  }
+
+  // Метод для безопасного обновления ошибки
+  private setInputError(input: Block, errorMessage: string): void {
+    const inputInstance = input as Input;
+    inputInstance.setError(errorMessage); // Обновляем ошибку через метод setError
   }
 
   override render() {
