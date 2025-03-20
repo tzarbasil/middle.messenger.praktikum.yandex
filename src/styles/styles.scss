@@ -1,0 +1,29 @@
+  body {
+    margin: 0;
+    font-family: Inter, sans-serif;
+    display: flex;
+    place-items: center;
+    min-height: 100vh;
+  }
+
+  h1, h2, h3, h4, h5, h6, p {
+    margin: 0;
+  }
+
+  #app {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+  }
+
+  .nav__item {
+    text-align: center;
+    font-size: 20px;
+  }
+
+  .nav__list {
+    list-style-type: none;
+    padding: 0;
+  }

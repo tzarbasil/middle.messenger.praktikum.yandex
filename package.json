@@ -9,13 +9,26 @@
   "scripts": {
     "dev": "vite",
     "build": "vite build",
-    "start": "vite build && node server.cjs",
-    "preview": "vite preview"
+    "start": "vite build && vite preview",
+    "preview": "vite preview",
+    "lint": "tsc --noEmit && npm run stylelint && npm run eslint",
+    "stylelint": "stylelint '**/*.{css,scss}'",
+    "eslint": "eslint src --ext .ts,.tsx --fix"
   },
   "devDependencies": {
+    "vite": "^4.0.1",
+    "@typescript-eslint/eslint-plugin": "^5.59.11",
+    "@typescript-eslint/parser": "^5.59.11",
+    "eslint": "^8.2.0",
+    "eslint-config-airbnb": "^19.0.4",
+    "eslint-config-airbnb-base": "^15.0.0",
+    "eslint-plugin-import": "^2.31.0",
     "sass": "^1.83.0",
     "sass-embedded": "^1.82.0",
-    "vite": "^4.0.1"
+    "stylelint": "^16.14.1",
+    "stylelint-config-standard-scss": "^14.0.0",
+    "stylelint-scss": "^6.11.0",
+    "typescript": "^5.0.4"
   },
   "dependencies": {
     "express": "^4.21.2",
