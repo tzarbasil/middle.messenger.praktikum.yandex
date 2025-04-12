@@ -47,7 +47,6 @@ export class LoginPage extends Block {
 
     this.AuthApi = new AuthApi();
   }
-
   async handleLogin(event: Event) {
     event.preventDefault();
 
@@ -69,6 +68,15 @@ export class LoginPage extends Block {
       if (response.status === 200) {
         console.log('Авторизация прошла успешно');
         router.go('/messenger');
+      } else if (response.status === 400) {
+        // Парсим JSON из responseText (так как используем XMLHttpRequest)
+        const errorResponse = JSON.parse(response.responseText);
+
+        if (errorResponse.reason === "User already in system") {
+          router.go("/messenger");
+        } else {
+          console.error('Ошибка авторизации', errorResponse);
+        }
       } else {
         console.error('Ошибка авторизации', response);
       }
@@ -76,6 +84,7 @@ export class LoginPage extends Block {
       console.error('Ошибка при попытке авторизации:', error);
     }
   }
+
 
   override render() {
     return LoginPageLayout;
