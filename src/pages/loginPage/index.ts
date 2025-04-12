@@ -71,11 +71,9 @@ export class LoginPage extends Block {
         router.go('/messenger');
       } else {
         console.error('Ошибка авторизации', response);
-        alert('Неверный логин или пароль');
       }
     } catch (error) {
       console.error('Ошибка при попытке авторизации:', error);
-      alert('Ошибка при авторизации');
     }
   }
 

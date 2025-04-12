@@ -75,7 +75,6 @@ export class PasswordPage extends Block {
     const { oldPassword, newPassword, repeatNewPassword } = data;
 
     if (newPassword !== repeatNewPassword) {
-      alert('Новый пароль и его подтверждение не совпадают');
       return;
     }
 
@@ -83,15 +82,10 @@ export class PasswordPage extends Block {
       const response = await this.EditProfileApi.updatePassword({ oldPassword, newPassword });
 
       if (response.status === 200) {
-        alert('Пароль успешно обновлён');
         form.reset();
-      } else {
-        const error = response.response ? JSON.parse(response.response) : { reason: 'Неизвестная ошибка' };
-        alert(`Ошибка: ${error.reason}`);
       }
     } catch (error) {
       console.error('Ошибка при смене пароля:', error);
-      alert('Произошла ошибка при попытке сменить пароль');
     }
   }
 
