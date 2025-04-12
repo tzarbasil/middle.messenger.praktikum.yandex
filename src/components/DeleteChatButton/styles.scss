@@ -1,0 +1,19 @@
+.delete_chat_btn {
+  background-color: #ec1330;
+  color: white;
+  width: 100%;
+  border-radius: 8px;
+  padding: 12px 0;
+  font-weight: 100;
+  margin-top: 0;
+  text-decoration: none;
+  max-width: 250px;
+  font-size: 13px;
+  border: none;
+  text-align: center;
+
+  &:hover {
+    background-color: #cf1c34;
+    cursor: pointer;
+  }
+}

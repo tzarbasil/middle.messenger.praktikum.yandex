@@ -9,7 +9,7 @@ export class Error404 extends Block {
       error: new Error({
         title: '404',
         subtitle: 'Не туда попали',
-        link: new Link({ text: 'Назад к чатам', href: '/messanger' }),
+        link: new Link({ text: 'Назад к чатам', href: '/messenger' }),
       }),
     });
   }

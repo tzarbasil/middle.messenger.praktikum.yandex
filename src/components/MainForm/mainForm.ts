@@ -1,4 +1,4 @@
-export const FormLayout = `<form class="main__form">
+export const FormLayout = `<form class="main__form {{class}}">
     <div class="main__form_inputs">
         {{{ inputs }}}
     </div>

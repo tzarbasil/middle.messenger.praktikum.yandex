@@ -1,6 +1,7 @@
 export const MessangerHeaderLayout = `<header class="sidebar__header">
   <nav class="sidebar__title">
-    {{{ link }}}
+  {{{ button }}}
+  {{{ link }}}
   </nav>
 {{{ search }}}
 </header>

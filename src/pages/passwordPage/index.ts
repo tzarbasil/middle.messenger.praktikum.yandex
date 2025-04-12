@@ -6,6 +6,7 @@ import { Block } from '../../services/Block';
 import './styles.scss';
 
 import { PasswordPageLayout } from './passwordPage';
+import { EditProfileApi } from '../../api/EditProfileApi';
 
 const changePasswordFields = [
   {
@@ -13,40 +14,85 @@ const changePasswordFields = [
     label: 'Старый пароль',
     type: 'password',
     required: true,
-    value: '123qwe',
+    value: '',
   },
   {
     name: 'newPassword',
     label: 'Новый пароль',
     type: 'password',
     required: true,
-    value: '123qwe',
+    value: '',
   },
   {
     name: 'repeatNewPassword',
     label: 'Повторите новый пароль',
     type: 'password',
     required: true,
-    value: '123qwe',
+    value: '',
   },
 ];
+
 export class PasswordPage extends Block {
+  private EditProfileApi: EditProfileApi;
+
   constructor() {
+    const form = new Form({
+      class: 'profile-form',
+      inputs: changePasswordFields.map(
+        (i) => new Input({ ...i, class: 'input_container' }),
+      ),
+      button: new Button({
+        text: 'Сохранить',
+        type: 'submit',
+        class: 'main__form_auth_btn',
+      }),
+    });
+
     super({
       title: 'Иван',
       sidebar: new Sidebar(),
-      form: new Form({
-        class: 'profile-form',
-        inputs: changePasswordFields.map(
-          (i) => new Input({ ...i, class: 'input_container' }),
-        ),
-        button: new Button({
-          text: 'Сохранить',
-          type: 'submit',
-          class: 'main__form_auth_btn',
-        }),
-      }),
+      form,
+      events: {
+        submit: (event: Event) => this.handlePasswordChange(event),
+      },
     });
+
+    this.EditProfileApi = new EditProfileApi();
+  }
+
+  async handlePasswordChange(event: Event) {
+    event.preventDefault();
+
+    const form = this.element?.querySelector('form');
+    if (!form) return;
+
+    const formData = new FormData(form);
+    const data: Record<string, string> = {};
+    formData.forEach((value, key) => {
+      data[key] = value as string;
+    });
+
+    const { oldPassword, newPassword, repeatNewPassword } = data;
+
+    if (newPassword !== repeatNewPassword) {
+      alert('Новый пароль и его подтверждение не совпадают');
+      return;
+    }
+
+    try {
+      const response = await this.EditProfileApi.updatePassword({ oldPassword, newPassword });
+
+      if (response.status === 200) {
+        alert('Пароль успешно обновлён');
+        form.reset();
+      } else {
+        const error = response.response ? JSON.parse(response.response) : { reason: 'Неизвестная ошибка' };
+        alert(`Ошибка: ${error.reason}`);
+      }
+    } catch (error) {
+      console.error('Ошибка при смене пароля:', error);
+      alert('Произошла ошибка при попытке сменить пароль');
+    }
   }
 
   override render() {

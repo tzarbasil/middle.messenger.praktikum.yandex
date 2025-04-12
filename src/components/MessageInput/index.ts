@@ -3,10 +3,14 @@ import { Form } from '../MainForm';
 import { Input } from '../MainInput';
 import { Block } from '../../services/Block';
 import { MessageInputLayout } from './messageInput';
+import './styles.scss';
 
 interface IMessageInputProps {
   name?: string;
   placeholder?: string;
+  events?: {
+    submit?: (event: Event) => void;
+  };
 }
 
 export class MessageInput extends Block {
@@ -17,11 +21,6 @@ export class MessageInput extends Block {
         class: 'message-input__form',
         inputs: [
           new Input({
-            type: 'file',
-            name: 'file',
-            class: 'message-input__file-input',
-          }),
-          new Input({
             type: 'text',
             name: 'message',
             class: 'message-input__text-input',
@@ -31,6 +30,7 @@ export class MessageInput extends Block {
         button: new Button({
           class: 'message-input__button',
           type: 'submit',
+          text: '➔',
         }),
       }),
     });

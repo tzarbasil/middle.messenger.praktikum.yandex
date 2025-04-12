@@ -1,0 +1,80 @@
+.chat-popup {
+  position: fixed;
+  inset: 0;
+  background-color: rgb(0 0 0 / 40%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+.chat-popup__overlay {
+  position: absolute;
+  inset: 0;
+}
+
+.chat_settings_popup {
+  position: relative;
+  background-color: #fff;
+  max-width: 440px;
+  width: 100%;
+  border-radius: 20px;
+  padding: 30px 10px;
+  box-sizing: border-box;
+}
+
+
+.add_chat_form_title {
+  color: #1E1E1E;
+  font-size: 24px;
+  font-weight: 600;
+  text-align: center;
+  margin-top: 10px;
+  margin-bottom: 20px;
+}
+
+.add_user_btn {
+  margin-top: 20px;
+}
+
+.hidden {
+  display: none !important;
+}
+
+.chat_user_list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding-bottom: 20px;
+  padding-left: 0;
+  margin-bottom: 20px;
+  list-style-type: none;
+
+  li {
+    font-size: 14px;
+    text-align: start;
+    font-weight: 300;
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+  }
+
+  p {
+    font-size: 16px;
+    color: #1E1E1E;
+    font-weight: 400;
+  }
+}
+
+.delete-user-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  margin-left: 10px;
+}
+
+.delete-user-icon {
+  width: 20px;
+  height: 20px;
+}

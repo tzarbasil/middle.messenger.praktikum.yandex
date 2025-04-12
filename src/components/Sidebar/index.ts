@@ -9,6 +9,7 @@ export class Sidebar extends Block {
       button: new Button({
         type: 'button',
         class: 'sidebar_link',
+        text: '⭠',
       }),
     });
   }
