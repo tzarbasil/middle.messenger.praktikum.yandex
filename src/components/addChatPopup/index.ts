@@ -71,7 +71,6 @@ export class ChatPopup extends Block {
     popup?.classList.add('hidden');
   }
 
-
   override render() {
     return addChatPopup;
   }

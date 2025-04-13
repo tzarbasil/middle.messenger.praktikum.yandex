@@ -59,7 +59,7 @@ export class HttpTransport {
 
       xhr.withCredentials = true;
 
-      xhr.onload = function () {
+      xhr.onload = () => {
         resolve(xhr);
       };
 
