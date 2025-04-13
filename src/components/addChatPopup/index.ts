@@ -30,6 +30,7 @@ export class ChatPopup extends Block {
       }),
       events: {
         submit: (event: Event) => this.handleCreateChat(event),
+        click: (event: Event) => this.handlePopupClick(event),
       },
     });
   }
@@ -57,6 +58,19 @@ export class ChatPopup extends Block {
       console.error('Ошибка при создании чата:', error);
     }
   }
+
+  handlePopupClick(event: Event) {
+    const target = event.target as HTMLElement;
+    if (target.classList.contains('chat-popup__close') || target.classList.contains('chat-popup__overlay')) {
+      this.hide();
+    }
+  }
+
+  hide() {
+    const popup = this.element;
+    popup?.classList.add('hidden');
+  }
+
 
   override render() {
     return addChatPopup;

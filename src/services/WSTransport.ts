@@ -57,7 +57,14 @@ export class MessageSocket {
     });
 
     this.socket.addEventListener('message', (event) => {
-      const data = JSON.parse(event.data);
+      let data;
+
+      try {
+        data = JSON.parse(event.data);
+      } catch (error) {
+        console.error('Не удалось распарсить сообщение:', event.data, error);
+        return;
+      }
 
       if (data.type === 'pong') {
         return;

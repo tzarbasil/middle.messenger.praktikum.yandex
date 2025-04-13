@@ -30,6 +30,7 @@ export class ChatSettingsPopup extends Block {
       }),
       events: {
         submit: (event: Event) => this.handleAddUser(event),
+        click: (event: Event) => this.handlePopupClick(event),
       },
     });
     this.chatId = chatId;
@@ -107,6 +108,18 @@ export class ChatSettingsPopup extends Block {
     } catch (error) {
       console.error('Ошибка при удалении пользователя:', error);
     }
+  }
+
+  handlePopupClick(event: Event) {
+    const target = event.target as HTMLElement;
+    if (target.classList.contains('chat-popup__close') || target.classList.contains('chat-popup__overlay')) {
+      this.hide();
+    }
+  }
+
+  hide() {
+    const popup = this.element;
+    popup?.classList.add('hidden');
   }
 
   override render() {
