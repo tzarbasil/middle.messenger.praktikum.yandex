@@ -1,0 +1,35 @@
+.message-input__form {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  gap: 10px;
+}
+
+.label_message {
+  width: 100%;
+}
+
+.message-input__button {
+  width: 30px;
+  height: 30px;
+  background-color: #2e5cd1;
+  color: white;
+  font-size: 20px;
+  font-weight: 100;
+  border: none;
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 10px;
+  transition:
+  background-color 0.2s ease;
+}
+
+.input_message {
+  background-color: #EFEFEF;
+  border-radius: 50px;
+  padding: 10px 20px;
+}
+

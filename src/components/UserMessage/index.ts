@@ -2,7 +2,7 @@ import { Block } from '../../services/Block';
 import { UserMessageLayout } from './userMessage';
 
 interface MessageInterface {
-  text: string;
+  content: string;
   time: string;
   isYours: boolean;
   isRead: boolean;

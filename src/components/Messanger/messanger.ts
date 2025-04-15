@@ -1,5 +1,5 @@
 export const MessangerLayout = `
-<a class="messanger" href={{href}}>
+<div class="messanger">
   <div class="messanger__content">
     <div class="messanger__list_item_avatar"></div>
     <div class="messanger__text">
@@ -12,5 +12,5 @@ export const MessangerLayout = `
   <div class="messanger__meta">
     <div class="messanger__list_item_time">{{time}}</div>
   </div>
-</a>
+</div>
 `;

@@ -1,76 +1,81 @@
-enum HttpMethod {
+import { BASE_URL } from '../api/baseUrl';
+
+enum METHODS {
   GET = 'GET',
   POST = 'POST',
   PUT = 'PUT',
-  DELETE = 'DELETE',
+  DELETE = 'DELETE'
 }
 
-class HttpRequest {
-  private queryStringify(params: Record<string, string>): string {
-    if (typeof params !== 'object' || params === null) {
-      throw new Error('Params must be an object');
-    }
+interface Options {
+    timeout?: number;
+    headers?: Record<string, string>;
+    method?: METHODS;
+    data?: Record<string, unknown> | FormData;
+    cookies?: boolean;
+}
 
-    return Object.keys(params).length
-      ? `?${Object.entries(params)
-        .map(([key, value]) => `${encodeURIComponent(key)}=${encodeURIComponent(value)}`)
-        .join('&')}`
-      : '';
+function queryStringify(data: Record<string, unknown>) {
+  if (typeof data !== 'object') {
+    throw new Error('Data must be object');
   }
 
-  private request(
-    method: HttpMethod,
-    url: string,
-    body: unknown = null,
-    params: Record<string, string> = {},
-  ): Promise<unknown> {
-    return new Promise((resolve, reject) => {
-      const fullUrl = method === HttpMethod.GET ? `${url}${this.queryStringify(params)}` : url;
+  const keys: string[] = Object.keys(data);
+  return keys.reduce((result, key, index): string => `${result}${key}=${data[key] as string}${index < keys.length - 1 ? '&' : ''}`, '?');
+}
+
+export class HttpTransport {
+  private _api: string;
+
+  constructor() {
+    this._api = BASE_URL;
+  }
+
+  get = (url: string, options: Options) => this.request(this._api + url, { ...options, method: METHODS.GET });
+
+  post = (url: string, options: Options) => this.request(this._api + url, { ...options, method: METHODS.POST }, options.timeout);
+
+  put = (url: string, options: Options) => this.request(this._api + url, { ...options, method: METHODS.PUT }, options.timeout);
+
+  delete = (url: string, options: Options) => this.request(this._api + url, { ...options, method: METHODS.DELETE }, options.timeout);
+
+  request = (url: string, options: Options, timeout = 5000) => {
+    const { headers = {}, method, data } = options;
+
+    return new Promise<XMLHttpRequest>((resolve, reject) => {
+      if (!method) {
+        reject(new Error('No method'));
+        return;
+      }
 
       const xhr = new XMLHttpRequest();
-      xhr.open(method, fullUrl, true);
+      const isGet = method === METHODS.GET;
 
-      if (method !== HttpMethod.GET) {
-        xhr.setRequestHeader('Content-Type', 'application/json');
-      }
+      xhr.open(method, isGet && !!data && !(data instanceof FormData) ? `${url}${queryStringify(data)}` : url);
+
+      Object.keys(headers).forEach((key) => {
+        xhr.setRequestHeader(key, headers[key]);
+      });
+
+      xhr.withCredentials = true;
 
       xhr.onload = () => {
-        if (xhr.status >= 200 && xhr.status < 300) {
-          try {
-            resolve(JSON.parse(xhr.responseText));
-          } catch {
-            reject(new Error('Failed to parse response'));
-          }
-        } else {
-          reject(new Error(`Request failed with status: ${xhr.status}`));
-        }
+        resolve(xhr);
       };
 
-      xhr.onerror = () => reject(new Error('Network error'));
+      xhr.onabort = reject;
+      xhr.onerror = reject;
 
-      if (method !== HttpMethod.GET && body) {
-        xhr.send(JSON.stringify(body));
-      } else {
+      xhr.timeout = timeout;
+      xhr.ontimeout = reject;
+
+      if (data instanceof FormData) {
+        xhr.send(data);
+      } else if (isGet || !data) {
         xhr.send();
+      } else {
+        xhr.send(JSON.stringify(data));
       }
     });
-  }
-
-  public get(url: string, params: Record<string, string> = {}): Promise<unknown> {
-    return this.request(HttpMethod.GET, url, null, params);
-  }
-
-  public post(url: string, body: unknown): Promise<unknown> {
-    return this.request(HttpMethod.POST, url, body);
-  }
-
-  public put(url: string, body: unknown): Promise<unknown> {
-    return this.request(HttpMethod.PUT, url, body);
-  }
-
-  public delete(url: string, body: unknown): Promise<unknown> {
-    return this.request(HttpMethod.DELETE, url, body);
-  }
+  };
 }
-
-export { HttpRequest, HttpMethod };
