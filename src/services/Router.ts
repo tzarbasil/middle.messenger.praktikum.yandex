@@ -1,22 +1,14 @@
-import { Block } from './Block';
-import { ProfileApi } from '../api/profileApi';
+import { Block } from './Block.js';
+import { ProfileApi } from '../api/profileApi.js';
 
 class Router {
-  private static instance: Router;
-
-  private routes: Record<string, typeof Block>;
+  private routes: Record<string, typeof Block> = {};
 
   private currentPage: Block | null = null;
 
   private rootQuery: string;
 
   constructor(rootQuery: string) {
-    if (Router.instance) {
-      return;
-    }
-
-    Router.instance = this;
-    this.routes = {};
     this.rootQuery = rootQuery;
 
     window.addEventListener('popstate', () => {
@@ -35,6 +27,11 @@ class Router {
 
   public go(path: string) {
     window.history.pushState({}, '', path);
+    this.onRouteChange(path);
+  }
+
+  public replace(path: string) {
+    window.history.replaceState({}, '', path);
     this.onRouteChange(path);
   }
 
@@ -68,17 +65,13 @@ class Router {
     const Page = this.routes[path] || this.routes['/404'];
     if (!Page) return;
 
-    if (this.currentPage) {
-      const root = document.querySelector(this.rootQuery);
-      if (root) root.innerHTML = '';
-    }
+    const root = document.querySelector(this.rootQuery);
+    if (root) root.innerHTML = '';
 
     this.currentPage = new Page();
-    const root = document.querySelector(this.rootQuery);
     if (root) root.appendChild(this.currentPage.updateElement());
   }
 }
 
-// eslint-disable-next-line no-use-before-define
 const router = new Router('#app');
-export { router };
+export { Router, router };

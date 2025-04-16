@@ -128,10 +128,10 @@ export class MessangerPage extends Block {
 
     this.socket.subscribe('messages:batch', (messages) => {
       const formatted = messages.reverse().map((chatmsg: any) => new Message({
-        content: chatmsg.content, // Содержимое сообщения
+        content: chatmsg.content,
         time: new Date(chatmsg.time).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
-        isYours: chatmsg.user_id === this.userId, // Добавляем поле, кто отправил
-        isRead: true, // По умолчанию можно считать сообщение прочитанным
+        isYours: chatmsg.user_id === this.userId,
+        isRead: true,
       }));
       this.chatSettingsPopup.chatId = chat.id;
       this.chatSettingsPopup.updateUserList();
@@ -150,7 +150,7 @@ export class MessangerPage extends Block {
         content: chatmsg.content,
         time: new Date(chatmsg.time).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
         isYours: chatmsg.user_id === this.userId,
-        isRead: true, // По умолчанию можно считать прочитанным
+        isRead: true,
       });
       this.lists.messageList = [...(this.lists.messageList || []), newMessage];
     });
@@ -181,17 +181,16 @@ export class MessangerPage extends Block {
       };
       this.socket.send(message);
 
-      // Сразу добавляем сообщение в список на клиенте
       const newMessage = new Message({
         content: messageText,
         time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
-        isYours: true, // Для теста, можно сделать позже динамично
-        isRead: true, // По умолчанию считаем прочитанным
+        isYours: true,
+        isRead: true,
       });
 
       const currentList = this.props.messageList as Message[];
       this.setProps({ messageList: [...(currentList || []), newMessage] });
-      inputElement.value = ''; // Очищаем поле ввода
+      inputElement.value = '';
     }
   }
 

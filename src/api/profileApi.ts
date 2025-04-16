@@ -1,5 +1,5 @@
-import { BaseApi, BASE_URL } from './baseUrl';
-import { HttpTransport } from '../services/HttpRequest';
+import { BaseApi, BASE_URL } from './baseUrl.js';
+import { HttpTransport } from '../services/HttpRequest.js';
 
 export class ProfileApi extends BaseApi {
   private _registerApi = new HttpTransport();

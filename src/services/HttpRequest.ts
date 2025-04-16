@@ -1,4 +1,4 @@
-import { BASE_URL } from '../api/baseUrl';
+import { BASE_URL } from '../api/baseUrl.js';
 
 enum METHODS {
   GET = 'GET',
