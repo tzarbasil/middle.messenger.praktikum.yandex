@@ -8,4 +8,4 @@ Netify: sprint3tzarbasil.netlify.app
 Также реализован месседжер - пользователю доступна возможность добавлять чаты, добавлять или удалять в них пользователей
 
 Запуск unit-тестов - npm test
-
+Запуск eslint и stylelint - npm run lint
