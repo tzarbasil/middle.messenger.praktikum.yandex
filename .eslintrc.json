@@ -2,7 +2,8 @@
   "env": {
     "browser": true,
     "es2021": true,
-    "node": true
+    "node": true,
+    "mocha": true
   },
   "parser": "@typescript-eslint/parser",
   "parserOptions": {
@@ -15,10 +16,16 @@
     "airbnb-base"
   ],
   "plugins": [
-    "@typescript-eslint"
+    "@typescript-eslint",
+    "chai-friendly"
   ],
   "rules": {
+    "no-plusplus": "off",
+    "@typescript-eslint/no-empty-function": "off",
+    "no-unused-expressions": "off",
+    "chai-friendly/no-unused-expressions": "error",
     "no-underscore-dangle": "off",
+    "max-classes-per-file": "off",
     "no-use-before-define": "off",
     "@typescript-eslint/no-use-before-define": ["error", { "functions": false, "classes": false }],
     "no-shadow": "off",
@@ -39,16 +46,28 @@
       {
         "devDependencies": [
           "vite",
-          "vite.config.js"
+          "vite.config.js",
+          "**/*.spec.ts",
+          "**/*.test.ts",
+          "**/test/**"
         ]
       }
     ]
   },
   "settings": {
     "import/resolver": {
+      "typescript": {},
       "node": {
         "extensions": [".js", ".ts"]
       }
     }
-  }
+  },
+  "overrides": [
+    {
+      "files": ["**/*.spec.ts", "**/*.test.ts"],
+      "rules": {
+        "no-void": "off"
+      }
+    }
+  ]
 }
